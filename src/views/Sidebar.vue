@@ -1,12 +1,12 @@
 <template>
   <main id="side-bar">
     <div class="logo-container">
-      <img src="../assets/Logo.png" width="138px" height="33px" alt />
+      <img src="../assets/logo.png" width="138px" height="33px" alt />
     </div>
 
     <ul class="nav-links">
       <li>
-        <router-link to="/">
+        <router-link to="/dashboard">
           <i class="far fa-chart-bar"></i>
           <span>Dashboard</span>
         </router-link>
@@ -24,7 +24,7 @@
         </router-link>
       </li>
       <li>
-        <router-link to="/availability">
+        <router-link to="/">
           <i class="far fa-calendar-alt"></i>
           <span>Availablity</span>
         </router-link>
@@ -66,6 +66,7 @@
         </router-link>
       </li>
     </ul>
+    <div class="footer-label">© 2019 Peexo Technologies</div>
   </main>
 </template>
 
@@ -102,5 +103,10 @@ export default {};
   font-size: 14px;
   font-weight: 200;
   padding-left: 1vw;
+}
+.footer-label {
+  color: #ffffff;
+  font-size: 12px;
+  text-align: center;
 }
 </style>

@@ -28,6 +28,7 @@ body {
   margin: 0;
   box-sizing: border-box;
   background-color: #fffdf7;
+  overflow-x: hidden;
 }
 a {
   font-weight: bold;
@@ -41,7 +42,6 @@ a.router-link-exact-active {
   color: #ffb603;
   border-left: 5px solid #ffb603;
   background-color: #5c5c5c;
-  /* box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5); */
 }
 #app {
   display: flex;
@@ -51,7 +51,6 @@ a.router-link-exact-active {
   width: 20vw;
   background: #4d4d4d;
   position: fixed;
-  /* box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5); */
   min-height: 100vh;
 }
 #app .main-route {
@@ -64,8 +63,7 @@ a.router-link-exact-active {
   width: 80vw;
   background-color: #fffdf9;
   box-shadow: 0 1px 4px 0 rgba(204, 204, 204, 0.5);
-  z-index: 2;
-
+  z-index: 30;
   overflow: hidden;
 }
 #app .router-container {

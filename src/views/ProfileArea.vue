@@ -7,7 +7,7 @@
         </router-link>
       </li>
       <li>
-        <router-link to="/photos">
+        <router-link to="/photographer">
           <span>Find a Photographer</span>
         </router-link>
       </li>
