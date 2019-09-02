@@ -1,31 +1,74 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div class="sidebar-container">
+      <Sidebar />
     </div>
-    <router-view/>
+    <div class="main-route">
+      <ProfileArea class="profile-container" />
+      <router-view class="router-container" />
+    </div>
   </div>
 </template>
 
+<script>
+import Sidebar from "./views/Sidebar";
+import ProfileArea from "./views/ProfileArea";
+export default {
+  components: {
+    Sidebar,
+    ProfileArea
+  }
+};
+</script>
+
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+body {
+  font-family: "Montserrat", "Lato";
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  background-color: #fffdf7;
 }
-#nav {
-  padding: 30px;
-}
-
-#nav a {
+a {
   font-weight: bold;
-  color: #2c3e50;
+  color: #d4d4d4;
+  text-decoration: none;
 }
+a:hover {
+  background-color: #5c5c5c;
+}
+a.router-link-exact-active {
+  color: #ffb603;
+  border-left: 5px solid #ffb603;
+  background-color: #5c5c5c;
+  /* box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5); */
+}
+#app {
+  display: flex;
+  width: 100vw;
+}
+#app .sidebar-container {
+  width: 20vw;
+  background: #4d4d4d;
+  position: fixed;
+  /* box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5); */
+  min-height: 100vh;
+}
+#app .main-route {
+  width: 80vw;
+  margin-left: 20vw;
+}
+#app .profile-container {
+  position: fixed;
+  height: 9vh;
+  width: 80vw;
+  background-color: #fffdf9;
+  box-shadow: 0 1px 4px 0 rgba(204, 204, 204, 0.5);
+  z-index: 2;
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+  overflow: hidden;
+}
+#app .router-container {
+  margin-top: 9vh;
 }
 </style>
