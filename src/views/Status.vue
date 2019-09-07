@@ -52,7 +52,7 @@ export default {
   mounted() {
     this.id = this.$route.params.id;
     this.date = this.$route.params.start;
-    this.text = this.$route.params.name;
+    this.text = this.$route.params.details;
     this.status = this.$route.params.type;
   }
 };

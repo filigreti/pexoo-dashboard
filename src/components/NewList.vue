@@ -37,7 +37,7 @@ export default {
     push(x) {
       this.$router.push({
         name: "status",
-        params: { id: x.id, start: x.start, details: x.details, type: x.type }
+        params: { id: x.id, start: x.start, details: x.name, type: x.type }
       });
     },
     remove(x) {
