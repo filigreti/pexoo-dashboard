@@ -164,7 +164,7 @@ export default {
     },
     updatedEvent(x) {
       let index = this.events.findIndex(({ id }) => id === x.id);
-      this.events[index] = x;
+      this.$set(this.events, index, x);
     }
   }
 };
