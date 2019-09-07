@@ -3,13 +3,13 @@
     <h3 class="title">Availability</h3>
     <div class="container">
       <div class="views container">
-        <div>
+        <div @click="changeView('calender')">
           <i class="far fa-calendar-alt"></i>
-          <span>Calender View</span>
+          <span :class="{underline:calenderView}">Calender View</span>
         </div>
-        <div>
+        <div @click="changeView('list')">
           <i class="fas fa-list-ul"></i>
-          <span>List View</span>
+          <span :class="{underline:listview}">List View</span>
         </div>
       </div>
       <div class="search-area">
@@ -18,29 +18,154 @@
           <i class="fas fa-search"></i>
         </div>
 
-        <button>
+        <button @click="showModal">
           <i class="fas fa-plus"></i>
           Add Schedule
         </button>
       </div>
     </div>
-    <div class="event-area">
-      <i class="fas fa-caret-left"></i>
-      <i class="fas fa-caret-right"></i>
-      <span>September 2019</span>
-      <button>Today</button>
+    <div v-if="calenderView" class="event-area">
+      <i @click="clickBack" class="fas fa-caret-left"></i>
+      <i @click="clickFront" class="fas fa-caret-right"></i>
+      <span>{{current}}</span>
+      <button @click="setToday">Today</button>
     </div>
-    <div class="calender-area">
-      <Calender />
+    <div v-if="calenderView" class="calender-area">
+      <NewCalender
+        :events="events"
+        ref="cal"
+        @first="current = $event"
+        @updated="updatedEvent = $event"
+      />
     </div>
+    <div v-if="listview" class="calender-area">
+      <NewList :events="events" />
+    </div>
+    <modal v-show="isModalVisible" @close="closeModal" @newVal="newEvent = $event " />
   </main>
 </template>
 
 <script>
-import Calender from "../components/Calender.vue";
+import Modal from "../components/Modal";
+import editModal from "../components/editModal";
+import NewCalender from "../components/NewCalender.vue";
+import NewList from "../components/NewList.vue";
+import Status from "./Status";
+import { log } from "util";
 export default {
   components: {
-    Calender
+    NewCalender,
+    NewList,
+    Status,
+    Modal
+  },
+  data() {
+    return {
+      current: null,
+      isModalVisible: false,
+      calenderView: true,
+      listview: false,
+      newEvent: null,
+      updatedEvent: null,
+      events: [
+        {
+          id: 1,
+          name: "Going to the beach!",
+          details: "Going to the beach!",
+          start: "2019-09-01",
+          end: "2019-09-01",
+          color: "#ffb603",
+          type: "platform"
+        },
+        {
+          id: 2,
+          name: "Spending time on how we do not have enough time",
+          details: "Spending time on how we do not have enough time",
+          start: "2019-09-07",
+          end: "2019-09-07",
+          color: "#ffb603",
+          type: "platform"
+        },
+        {
+          id: 3,
+          name:
+            "This starts in the middle of an event and spans over multiple events",
+          details:
+            "This starts in the middle of an event and spans over multiple events",
+          start: "2019-09-15",
+          end: "2019-09-18",
+          color: "#ffb603",
+          type: "added"
+        },
+        {
+          id: 4,
+          name:
+            "This starts in the middle of an event and spans over multiple events",
+          details:
+            "This starts in the middle of an event and spans over multiple events",
+          start: "2019-09-23",
+          end: "2019-09-23",
+          color: "#ffb603",
+          type: "added"
+        },
+        {
+          id: 5,
+          name:
+            "This starts in the middle of an event and spans over multiple events",
+          details:
+            "This starts in the middle of an event and spans over multiple events",
+          start: "2019-09-30",
+          end: "2019-09-30",
+          color: "#ffb603",
+          type: "platform"
+        }
+      ]
+    };
+  },
+  methods: {
+    changeView(x) {
+      if (x == "list") {
+        (this.calenderView = false), (this.listview = true);
+      } else if (x == "calender") {
+        this.calenderView = true;
+        this.listview = false;
+      }
+    },
+    showModal() {
+      this.isModalVisible = true;
+    },
+    closeModal() {
+      this.isModalVisible = false;
+    },
+    clickBack() {
+      this.$refs.cal.prev();
+    },
+    clickFront() {
+      this.$refs.cal.next();
+    },
+    setToday() {
+      this.$refs.cal.setToday();
+    }
+  },
+  watch: {
+    newEvent(x) {
+      if (x != null) {
+        this.events.push(x);
+      }
+    },
+    $route: {
+      handler: function(x) {
+        if (x.params.status === "list") {
+          this.changeView("list");
+        }
+      },
+      deep: true,
+      immediate: true
+    },
+    updatedEvent(x) {
+      let index = this.events.findIndex(({ id }) => id === x.id);
+      this.events[index] = x;
+    }
   }
 };
 </script>
@@ -56,7 +181,7 @@ export default {
   display: flex;
   font-size: 14px;
   align-items: center;
-  justify-content: space-between;
+  cursor: pointer;
 }
 #availability .views {
   color: #b58000;
@@ -138,5 +263,9 @@ input::placeholder {
   margin-top: 30px;
   width: 100%;
   height: 100%;
+}
+.underline {
+  padding-bottom: 3px;
+  border-bottom: 1px solid #ffb603;
 }
 </style>

@@ -45,7 +45,7 @@ a.router-link-exact-active {
 }
 #app {
   display: flex;
-  width: 100vw;
+  /* width: 100vw; */
 }
 #app .sidebar-container {
   width: 20vw;

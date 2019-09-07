@@ -1,7 +1,8 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Availability from "./views/Availability.vue";
-import Dashboard from "./views/Dashboard.vue";
+import Status from "./views/Status.vue";
+import Calender from "./components/NewCalender.vue";
 
 Vue.use(Router);
 
@@ -12,6 +13,11 @@ export default new Router({
       path: "/",
       name: "availability",
       component: Availability
+    },
+    {
+      path: "/status/:id",
+      name: "status",
+      component: Status
     }
   ]
 });
